@@ -5,13 +5,16 @@ const appConfig = require('./config/app');
 const app = express();
 const routes = require('./routes');
 const cors = require('cors');
+const initializeScheduler = require('./scheduler');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors());
 
+initializeScheduler();
+
 app.get('/', (req, res, next) => {
-	console.log('Hello World');
+	console.info('App is running');
 
 	return res.status(200).send('OK');
 });
