@@ -1,0 +1,34 @@
+{
+  "name": "renewal-vo-services",
+  "version": "1.0.0",
+  "description": "Renewal VO services for voffice",
+  "main": "app.js",
+  "repository": "https://github.com/voffice-id/renewal-vo-services",
+  "author": "theyudhiztira",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "date-fns": "^2.28.0",
+    "dotenv": "^11.0.0",
+    "express": "^4.17.2",
+    "fastest-validator": "^1.12.0",
+    "jsonwebtoken": "^8.5.1",
+    "md5": "^2.3.0",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.13.0"
+  },
+  "scripts": {
+    "prettier": "prettier --check '**/*.js'",
+    "prettier:fix": "prettier --write '**/*.js'",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint --fix --ext .js, .",
+    "start": "nodemon app.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.6.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.3.0",
+    "nodemon": "^2.0.15",
+    "prettier": "2.5.1"
+  }
+}

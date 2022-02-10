@@ -1,0 +1,70 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es2021": true
+    },
+    "extends": [
+        "google",
+        "prettier"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2021
+    },
+    "rules": {
+        "padding-line-between-statements": [
+            "warn",
+            {
+                "blankLine": "always",
+                "prev": "*",
+                "next": "multiline-block-like"
+            },
+            {
+                "blankLine": "always",
+                "prev": "multiline-block-like",
+                "next": "*"
+            },
+            {
+                "blankLine": "always",
+                "prev": "*",
+                "next": [
+                    "const",
+                    "let",
+                    "export"
+                ]
+            },
+            {
+                "blankLine": "always",
+                "prev": [
+                    "const",
+                    "let",
+                    "export"
+                ],
+                "next": "*"
+            },
+            {
+                "blankLine": "any",
+                "prev": [
+                    "const",
+                    "let",
+                    "export"
+                ],
+                "next": [
+                    "const",
+                    "let",
+                    "export"
+                ]
+            },
+            {
+                "blankLine": "always",
+                "prev": "*",
+                "next": "return"
+            }
+        ],
+        "no-console": ["error",
+            {
+                "allow": ["warn", "error", "info"]
+            }
+        ]
+    }
+}
