@@ -1,10 +1,9 @@
 const express = require('express');
-const UserBalancesController = require('../controllers/UserBalancesController');
-const Auth = require('../middleware/Auth');
+const VoController = require('../controllers/VoController');
 const router = new express.Router();
 
-router.get('/get-quota/:userId', Auth, async (req, res, next) => {
-	await new UserBalancesController().getUserBalances(req, res, next);
+router.get('/tes', async (req, res, next) => {
+	await new VoController().getTest(req, res, next);
 });
 
 module.exports = router;
