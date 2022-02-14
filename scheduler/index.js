@@ -9,6 +9,7 @@ async function initializeScheduler() {
 
 	files
 		.filter((file) => !file.startsWith('index'))
+		.map((file) => file.replace('.js', ''))
 		.map((file) => {
 			const Class = require(`./${file}`);
 			const instance = new Class();

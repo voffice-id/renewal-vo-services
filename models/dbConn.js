@@ -1,4 +1,3 @@
-// import sequelize
 const {Sequelize} = require('sequelize');
 const appConfig = require('../config/app');
 
@@ -7,11 +6,20 @@ const db = new Sequelize(appConfig.db.name, appConfig.db.user, appConfig.db.pass
 	host: appConfig.db.host,
 	dialect: 'mysql',
 	port: appConfig.db.port,
-	// define: {
-	//   underscored: true,
-	//   freezeTableName: true, //use singular table name
-	//   timestamps: false,  // I do not want timestamp fields by default
-	// },
+	define: {
+		// hooks: {
+		// 	beforeCreate: (model) => {
+		// 		model.createdAt = new Date();
+		// 		model.updatedAt = new Date();
+		// 	},
+		// 	beforeUpdate: (model) => {
+		// 		model.updatedAt = new Date();
+		// 	},
+		// },
+		// underscored: true,
+		// freezeTableName: true, // use singular table name
+		// timestamps: false,  // I do not want timestamp fields by default
+	},
 	dialectOptions: {
 		useUTC: false, // for reading from database UTC time
 	},
