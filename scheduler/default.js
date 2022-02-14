@@ -1,9 +1,9 @@
 const {formatDate} = require('../libs/helpers');
 
 /**
- * @class Default
+ * @class DefaultScheduler
  */
-class Default {
+class DefaultScheduler {
 	/**
 	 * Default
 	 * @return {object}
@@ -18,4 +18,4 @@ class Default {
 	}
 }
 
-module.exports = Default;
+module.exports = DefaultScheduler;
