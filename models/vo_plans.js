@@ -59,12 +59,11 @@ const VoPlans = db.define(
 		},
 	},
 	{
-		freezeTableName: true,
 		underscored: true,
 	}
 );
 
-VoPlans.hasOne(InvoicesDt, {foreignKey: 'vo_plan_id'});
-InvoicesDt.belongsTo(VoPlans, {foreignKey: 'vo_plan_id'});
+VoPlans.hasOne(InvoicesDt, {foreignKey: 'company_plan_id'});
+InvoicesDt.belongsTo(VoPlans, {foreignKey: 'company_plan_id'});
 
 module.exports = VoPlans;

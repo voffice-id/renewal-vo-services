@@ -1,5 +1,6 @@
 const {Model, DataTypes} = require('sequelize');
 const db = require('./dbConn');
+const ActivationData = require('./activation_data');
 
 const InvoicesDt = db.define(
 	'invoices_dt',
@@ -46,5 +47,8 @@ const InvoicesDt = db.define(
 		timestamps: false,
 	}
 );
+
+InvoicesDt.hasOne(ActivationData, {foreignKey: 'invoice_id', sourceKey: 'invoice_id'});
+ActivationData.belongsTo(InvoicesDt, {foreignKey: 'invoice_id', targetKey: 'invoice_id'});
 
 module.exports = InvoicesDt;

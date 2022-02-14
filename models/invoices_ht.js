@@ -1,6 +1,7 @@
 const {Model, DataTypes} = require('sequelize');
 const db = require('./dbConn');
 const InvoicesDt = require('./invoices_dt');
+const ActivationData = require('./activation_data');
 
 const InvoicesHt = db.define(
 	'invoices_ht',
@@ -94,5 +95,7 @@ const InvoicesHt = db.define(
 
 InvoicesHt.hasMany(InvoicesDt, {foreignKey: 'invoice_id'});
 InvoicesDt.belongsTo(InvoicesHt, {foreignKey: 'invoice_id'});
+InvoicesHt.hasOne(ActivationData, {foreignKey: 'invoice_id'});
+ActivationData.belongsTo(InvoicesHt, {foreignKey: 'invoice_id'});
 
 module.exports = InvoicesHt;
