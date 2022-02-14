@@ -7,6 +7,7 @@
   "author": "theyudhiztira",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.26.0",
     "cors": "^2.8.5",
     "date-fns": "^2.28.0",
     "dotenv": "^11.0.0",

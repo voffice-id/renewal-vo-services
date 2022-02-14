@@ -9,6 +9,14 @@ const appConfig = {
 		name: process.env.DB_NAME,
 		nameMain: process.env.DB_NAME_MAIN,
 	},
+	waBlast: {
+		url: process.env.WA_BLAST_URL,
+		token: process.env.WA_BLAST_TOKEN,
+		templateText: (data) => `Hi ${data.company.company_name} your plan account is about to expire. ` +
+			"Please renew your plan. " + "\n\n" +
+			"Thank you." + "\n" +
+			"PT vOffice Indonesia",
+	},
 };
 
 module.exports = appConfig;

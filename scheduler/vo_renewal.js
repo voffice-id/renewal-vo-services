@@ -3,14 +3,25 @@ const {format, parseISO, addMonths} = require('date-fns');
 const InvoicesDt = require('../models/invoices_dt');
 const ActivationData = require('../models/activation_data');
 const VoPlans = require('../models/vo_plans');
+const VoService = require('../services/VoService');
+const Companies = require('../models/companies');
 
 /**
  * @class VoRenewalScheduler
  */
 class VoRenewalScheduler {
 	/**
+	 * Define UserBalancesService
+	 *
+	 * @hideconstructor
+	 */
+	constructor() {
+		this.voService = new VoService();
+	}
+
+	/**
 	 * Send renewal message to all users who have not renewed their account
-	 * @return {object}
+	 * @return {{timeConfig, callback}}
 	 */
 	sendReminderMessage() {
 		return {
@@ -21,10 +32,9 @@ class VoRenewalScheduler {
 					const clientPlans = await VoPlans.findAll({
 						where: {
 							status: 3,
-							end_date: {
-								[Op.gte]: currentDate,
-							},
+							end_date: currentDate, // Checking if the next renewal date is the current date
 						},
+						include: Companies,
 					});
 
 					console.info(`Running scheduler sendReminderMessage() at ${currentDate}`);
@@ -32,27 +42,10 @@ class VoRenewalScheduler {
 					if (clientPlans.length >= 0) {
 						await Promise.allSettled(
 							clientPlans.map(async (clientPlan) => {
-								// Checking if the next renewal date is the current date
-								if (format(parseISO(clientPlan.end_date), 'yyyy-MM-dd') === currentDate) {
-									console.info(`Sending renewal reminder to ${clientPlan.clientId}`);
-									// const {clientId, end_date} = clientPlan;
-									// const client = await clientPlan.getClient();
-									// const {email} = client;
-									// const {name} = clientPlan;
-									// const {end_date: end_dateFormatted} = clientPlan;
+								console.info(`Sending renewal reminder to ${clientPlan.clientId}`);
 
-									// const mailOptions = {
-									// 	to: email,
-									// 	subject: 'Your account will expire in 1 day',
-									// 	html: `<p>Dear ${name},</p>
-									// <p>Your account will expire on ${formatDate(end_dateFormatted)}</p>
-									// <p>Please renew your account to continue using our services.</p>
-									// <p>Thank you.</p>`,
-									// };
-
-									// return await sendMail(mailOptions);
-								}
-							})
+								await this.voService.sendMessage(clientPlan);
+							}),
 						);
 					}
 				} catch (e) {
@@ -64,7 +57,7 @@ class VoRenewalScheduler {
 
 	/**
 	 * Deactivate product status of all users who have not renewed their account
-	 * @return {object}
+	 * @return {{timeConfig, callback}}
 	 */
 	deactivateNotRenewProduct() {
 		return {

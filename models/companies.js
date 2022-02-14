@@ -1,6 +1,7 @@
 const {DataTypes} = require('sequelize');
 const db = require('./dbConn');
 const InvoicesHt = require('./invoices_ht');
+const VoPlans = require('./vo_plans');
 
 const Companies = db.define(
 	'companies',
@@ -69,7 +70,7 @@ const Companies = db.define(
 		},
 	},
 	{
-		freezeTableName: true,
+		underscored: true,
 	}
 );
 
@@ -78,5 +79,7 @@ const Companies = db.define(
 // Plans.belongsTo(Companies, {foreignKey: 'company_id'});
 Companies.hasMany(InvoicesHt, {foreignKey: 'company_id'});
 InvoicesHt.belongsTo(Companies, {foreignKey: 'company_id'});
+Companies.hasMany(VoPlans, {foreignKey: 'company_id'});
+VoPlans.belongsTo(Companies, {foreignKey: 'company_id'});
 
 module.exports = Companies;
