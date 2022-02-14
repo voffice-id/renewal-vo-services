@@ -1,9 +1,21 @@
-const express = require('express');
-const VoController = require('../controllers/VoController');
-const router = new express.Router();
+const fs = require('fs');
 
-router.get('/tes', async (req, res, next) => {
-	await new VoController().getTest(req, res, next);
-});
+const initializeRoute = async (app, router) => {
+	try {
+		const files = await fs.promises.readdir(__dirname);
 
-module.exports = router;
+		files
+			.filter((file) => !file.startsWith('index'))
+			.map((file) => file.replace('.js', ''))
+			.map((file) => {
+				const module = require(`./${file}`);
+				const route = module(router);
+
+				app.use(route.path, route.router);
+			});
+	} catch (e) {
+		console.error(e);
+	}
+};
+
+module.exports = initializeRoute;
